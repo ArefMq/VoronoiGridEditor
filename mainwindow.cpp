@@ -392,9 +392,9 @@ void MainWindow::saveConfig(const std::string& add)
     file << "# region, x, y [, cx, cy] [:name]" << std::endl;
     for (std::vector<VoronoiParticle>::const_iterator p=particles.begin(); p<particles.end(); p++)
     {
-        file << p->id() << ", " << p->xraw() << ", " << p->yraw();
+        file << p->id() << ", " << p->xraw()*10.f << ", " << p->yraw()*10.f;
         if (p->isMoved())
-            file << ", " << p->cxraw() << ", " << p->cyraw();
+            file << ", " << p->cxraw()*10.f << ", " << p->cyraw()*10.f;
 
         if (p->_name != "")
             file << " :" << p->_name;
@@ -522,10 +522,10 @@ void MainWindow::loadConfig(const std::string& add)
         if (!cfgReader.isOk) continue;
 
         VoronoiParticle p = VoronoiParticle(0, 0, "");
-        p._x = cfgReader.x;
-        p._y = cfgReader.y;
-        p._cx = cfgReader.cx;
-        p._cy = cfgReader.cy;
+        p._x = cfgReader.x/10.f;
+        p._y = cfgReader.y/10.f;
+        p._cx = cfgReader.cx/10.f;
+        p._cy = cfgReader.cy/10.f;
         p._id = cfgReader.id;
         p._name = cfgReader.s;
 
